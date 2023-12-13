@@ -1,5 +1,11 @@
 package main
 
 templ index() {
-    <div>Hello World!</div>
+    for _, article := range Articles {
+        <div class="article">
+            <img src={article.ImageUrl} />
+            <h2>{article.Title}</h2>
+            <p>{article.Body}</p>
+        </div>
+    }
 }
