@@ -1,11 +1,84 @@
 package main
 
+css content() {
+    padding: 20px;
+}
+
 templ index() {
-    for _, article := range Articles {
-        <div class="article">
-            <img src={article.ImageUrl} />
-            <h2>{article.Title}</h2>
-            <p>{article.Body}</p>
+    <html lang="uk">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Гончарство України</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            nav {
+                background-color: #333;
+                color: #fff;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            li {
+                float: left;
+            }
+
+            a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            article {
+                margin-bottom: 30px;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        @navBar()
+
+        <div class={ content() }>
+        for _, article := range Articles {
+            <article>
+                <img src={article.ImageUrl} alt={article.Title}/>
+                <h2>{article.Title}</h2>
+                <p>{article.Body}</p>
+            </article>
+        }
         </div>
-    }
+    </body>
+    </html>
+}
+
+templ navBar() {
+    <nav>
+        <ul>
+            <li><a href="/">Домашня</a></li>
+            <li><a href="/glossary">Глосарій</a></li>
+        </ul>
+    </nav>
 }
