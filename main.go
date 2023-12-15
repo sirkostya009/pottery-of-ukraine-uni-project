@@ -18,10 +18,11 @@ func main() {
 		c.HTML(200, "", glossary())
 	})
 
-	r.GET("/stylesheet.go", func(c *gin.Context) {
+	r.GET("/stylesheet.css", func(c *gin.Context) {
 		_, err := c.Writer.WriteString(stylesheet)
 		if err != nil {
-			fmt.Println("Error writing stylesheet.go")
+			fmt.Println("Failed to write stylesheet", err)
+			_ = c.AbortWithError(500, err)
 		}
 	})
 

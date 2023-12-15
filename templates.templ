@@ -1,0 +1,65 @@
+package main
+
+templ head(title string) {
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/x-icon" href="https://picsum.photos/100/100"/>
+        <link rel="stylesheet" href="/stylesheet.css"/>
+        <title>{ title }</title>
+    </head>
+}
+
+templ navBar() {
+    <nav>
+        <ul>
+            <li><a href="/">Домашня</a></li>
+            <li><a href="/glossary">Глосарій</a></li>
+        </ul>
+    </nav>
+}
+
+templ index() {
+    <html lang="uk">
+    @head("Гончарство України")
+    <body>
+        @navBar()
+
+        <div class="content">
+        for _, article := range Articles {
+            <article>
+                <img class="article-img" src={article.ImageUrl} alt={article.Title}/>
+                <div>
+                    <h2>{article.Title}</h2>
+                    <p>{article.Body}</p>
+                </div>
+            </article>
+        }
+        </div>
+    </body>
+    </html>
+}
+
+templ glossary() {
+    <html lang="uk">
+    @head("Глосарій | Гончарство України")
+    <body>
+        @navBar()
+
+        <img
+            class="glossary-gif"
+            alt="Гончарство"
+            src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3hsczFvejhvZ29oZ3h2d21zcnJqMmRhZjcyZXYyNzE2anM2cHQzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZiD0X6xsTKXlhtTdnt/giphy.gif"
+        />
+
+        <div class="card-container">
+        for _, article := range Articles {
+            <div class="card">
+                <img class="card-img" src={article.ImageUrl} alt={article.Title}/>
+                <h2>{article.Title}</h2>
+            </div>
+        }
+        </div>
+    </body>
+    </html>
+}
