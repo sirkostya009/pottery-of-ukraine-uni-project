@@ -1,7 +1,11 @@
 package main
 
 css content() {
-    padding: 20px;
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #eee;
 }
 
 templ index() {
@@ -9,6 +13,7 @@ templ index() {
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/x-icon" href="https://picsum.photos/100/100"/>
         <title>Гончарство України</title>
         <style>
             body {
@@ -47,14 +52,33 @@ templ index() {
             }
 
             article {
-                margin-bottom: 30px;
+                display: flex;
+                align-items: center;
+                max-width: 900px;
+                margin: 20px;
+            }
+
+            article:nth-child(odd) {
+                flex-direction: row-reverse;
             }
 
             img {
                 max-width: 100%;
                 height: auto;
-                display: block;
-                margin: 0 auto;
+                margin-right: 20px;
+                border-radius: 8px;
+            }
+
+            h2 {
+                font-size: 24px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            p {
+                font-size: 16px;
+                padding-left: 20px;
+                padding-right: 20px;
             }
         </style>
     </head>
@@ -65,8 +89,10 @@ templ index() {
         for _, article := range Articles {
             <article>
                 <img src={article.ImageUrl} alt={article.Title}/>
-                <h2>{article.Title}</h2>
-                <p>{article.Body}</p>
+                <div>
+                    <h2>{article.Title}</h2>
+                    <p>{article.Body}</p>
+                </div>
             </article>
         }
         </div>
