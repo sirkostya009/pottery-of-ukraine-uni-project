@@ -17,5 +17,9 @@ func main() {
 		c.HTML(200, "", glossary())
 	})
 
+	r.GET("/stylesheet.css", func(c *gin.Context) {
+		c.File("stylesheet.css")
+	})
+
 	_ = r.Run(":" + os.Getenv("PORT"))
 }
