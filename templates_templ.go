@@ -198,7 +198,7 @@ func glossary() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"glossary-gif\" alt=\"Гончарство\" src=\"https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3hsczFvejhvZ29oZ3h2d21zcnJqMmRhZjcyZXYyNzE2anM2cHQzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZiD0X6xsTKXlhtTdnt/giphy.gif\"><div id=\"popup\"><h2 id=\"popupTitle\"></h2><img id=\"popupImage\" src=\"\"> <button id=\"close-btn\" onclick=\"popup.style.display=&#39;none&#39;\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"glossary-gif\" alt=\"Гончарство\" src=\"https://i.giphy.com/xT0GqgJ4EapuPA3AUo.webp\"><div id=\"popup\"><h2 id=\"popupTitle\"></h2><img id=\"popupImage\" src=\"\"> <button id=\"close-btn\" onclick=\"popup.style.display=&#39;none&#39;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
