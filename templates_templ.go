@@ -260,7 +260,8 @@ func glossary() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Var13 := `
-    document.body.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
+    document.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
+    popup.addEventListener('click', (event) => event.target !== popupImage && (popup.style.display = 'none'));
     `
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
 		if templ_7745c5c3_Err != nil {

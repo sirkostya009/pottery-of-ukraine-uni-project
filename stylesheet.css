@@ -167,6 +167,6 @@ a:hover {
     }
 
     #close-btn {
-        font-size: 24pt;
+        display: none;
     }
 }
