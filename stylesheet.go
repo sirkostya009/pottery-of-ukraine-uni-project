@@ -10,6 +10,8 @@ body {
 article {
     display: flex;
     align-items: center;
+    flex-direction: row;
+	with: 100%;
     max-width: 900px;
     margin: 20px;
 }
@@ -21,20 +23,18 @@ article:nth-child(odd) {
 .article-img {
     max-width: 100%;
     height: auto;
-    margin-right: 20px;
+    margin: 20px;
     border-radius: 8px;
 }
 
 h2 {
     font-size: 24px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
 }
 
 p {
     font-size: 16px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
 }
 
 nav {
@@ -42,7 +42,7 @@ nav {
     color: #fff;
     position: fixed;
     width: 100%;
-	top: 0;
+    top: 0;
 }
 
 ul {
@@ -50,7 +50,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-	max-width: 800px;
+    max-width: 800px;
 }
 
 li {
@@ -91,7 +91,7 @@ a:hover {
     border-radius: 8px;
     padding: 20px;
     margin: 20px;
-	margin-top: 50px;
+    margin-top: 50px;
 }
 
 .card-img {
@@ -100,13 +100,33 @@ a:hover {
 }
 
 .glossary-gif {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	max-width: 100%;
-	max-height: 100%;
-	align-self: center;
-	margin: auto;
-	margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    max-height: 100%;
+    align-self: center;
+    margin: auto;
+    margin-top: 100px;
+}
+
+/* Media Query for screens smaller than 600px */
+@media only screen and (max-width: 600px) {
+    .content {
+        padding: 10px;
+    }
+
+    .card {
+        flex: 0 0 100%;
+    }
+
+	article {
+		max-width: 100%;
+		flex-direction: column;
+	}
+
+	article:nth-child(odd) {
+		flex-direction: column;
+	}
 }
 `
