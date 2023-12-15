@@ -52,14 +52,30 @@ templ glossary() {
             src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3hsczFvejhvZ29oZ3h2d21zcnJqMmRhZjcyZXYyNzE2anM2cHQzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZiD0X6xsTKXlhtTdnt/giphy.gif"
         />
 
+        <div id="popup">
+            <h2 id="popupTitle"></h2>
+            <img id="popupImage" src=""/>
+            <button id="close-btn" onclick="popup.style.display='none'">Закрити</button>
+        </div>
+
         <div class="card-container">
         for _, article := range Articles {
-            <div class="card">
+            <div class="card" onclick={ onclick(article) }>
                 <img class="card-img" src={article.ImageUrl} alt={article.Title}/>
                 <h2>{article.Title}</h2>
             </div>
         }
         </div>
     </body>
+    <script>
+    document.body.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
+    </script>
     </html>
+}
+
+script onclick(article Article) {
+    popup.style.display = "flex";
+    popupImage.src = article.ImageUrl;
+    popupImage.alt = article.Title;
+    popupTitle.innerText = article.Title;
 }

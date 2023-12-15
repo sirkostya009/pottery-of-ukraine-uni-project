@@ -198,12 +198,34 @@ func glossary() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"glossary-gif\" alt=\"Гончарство\" src=\"https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3hsczFvejhvZ29oZ3h2d21zcnJqMmRhZjcyZXYyNzE2anM2cHQzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZiD0X6xsTKXlhtTdnt/giphy.gif\"><div class=\"card-container\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"glossary-gif\" alt=\"Гончарство\" src=\"https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3hsczFvejhvZ29oZ3h2d21zcnJqMmRhZjcyZXYyNzE2anM2cHQzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZiD0X6xsTKXlhtTdnt/giphy.gif\"><div id=\"popup\"><h2 id=\"popupTitle\"></h2><img id=\"popupImage\" src=\"\"> <button id=\"close-btn\" onclick=\"popup.style.display=&#39;none&#39;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var10 := `Закрити`
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></div><div class=\"card-container\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, article := range Articles {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"card\"><img class=\"card-img\" src=\"")
+			templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, onclick(article))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"card\" onclick=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var11 templ.ComponentScript = onclick(article)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11.Call)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><img class=\"card-img\" src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -223,8 +245,8 @@ func glossary() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var10 string = article.Title
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+			var templ_7745c5c3_Var12 string = article.Title
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -233,7 +255,18 @@ func glossary() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></body><script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var13 := `
+    document.body.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
+    `
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -242,4 +275,16 @@ func glossary() templ.Component {
 		}
 		return templ_7745c5c3_Err
 	})
+}
+
+func onclick(article Article) templ.ComponentScript {
+	return templ.ComponentScript{
+		Name: `__templ_onclick_4ec8`,
+		Function: `function __templ_onclick_4ec8(article){popup.style.display = "flex";
+    popupImage.src = article.ImageUrl;
+    popupImage.alt = article.Title;
+    popupTitle.innerText = article.Title;}`,
+		Call:       templ.SafeScript(`__templ_onclick_4ec8`, article),
+		CallInline: templ.SafeScriptInline(`__templ_onclick_4ec8`, article),
+	}
 }
