@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"os"
 )
@@ -17,9 +18,12 @@ func main() {
 		c.HTML(200, "", glossary())
 	})
 
-	r.GET("/stylesheet.css", func(c *gin.Context) {
-		c.File("stylesheet.css")
+	r.GET("/stylesheet.go", func(c *gin.Context) {
+		_, err := c.Writer.WriteString(stylesheet)
+		if err != nil {
+			fmt.Println("Error writing stylesheet.go")
+		}
 	})
 
-	_ = r.Run("0.0.0.0:" + os.Getenv("PORT"))
+	_ = r.Run(":" + os.Getenv("PORT"))
 }

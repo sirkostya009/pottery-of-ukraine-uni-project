@@ -1,3 +1,6 @@
+package main
+
+const stylesheet = `
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -64,3 +67,4 @@ a:hover {
     background-color: #ddd;
     color: black;
 }
+`
