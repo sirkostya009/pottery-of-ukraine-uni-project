@@ -69,7 +69,7 @@ templ glossary() {
     </body>
     <script>
     document.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
-    popup.addEventListener('click', (event) => event.target !== popupImage && (popup.style.display = 'none'));
+    popup.addEventListener('click', (event) => (visualViewport.width <= 800 || event.target !== popupImage) && (popup.style.display = 'none'));
     </script>
     </html>
 }

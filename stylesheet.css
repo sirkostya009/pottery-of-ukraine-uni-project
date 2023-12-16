@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -168,5 +168,10 @@ a:hover {
 
     #close-btn {
         display: none;
+    }
+
+    #popup img {
+        height: 90%;
+        width: 90%;
     }
 }
