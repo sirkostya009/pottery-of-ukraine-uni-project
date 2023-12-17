@@ -20,7 +20,8 @@ article:nth-child(odd) {
 }
 
 .article-img {
-    max-width: 100%;
+    max-width: 300px;
+    max-height: 300px;
     height: auto;
     margin: 20px;
     border-radius: 8px;
@@ -77,11 +78,17 @@ a:hover {
     background-color: #eee;
 }
 
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
+    max-width: 1300px;
     justify-content: center;
-    margin: 20px;
 }
 
 .card {
@@ -90,9 +97,10 @@ a:hover {
     padding: 20px;
     margin: 50px 20px 20px;
     flex: 1 1 20%;
-    max-width: 500px;
-    max-height: 500px;
+    max-width: 300px;
+    max-height: 300px;
     overflow: hidden;
+    text-align: center;
 }
 
 .card:hover {
@@ -103,9 +111,10 @@ a:hover {
 .card-img {
     width: 100%;
     height: auto;
-    max-height: 90%;
-    object-fit: cover;
+    max-height: 85%;
+    object-fit: contain;
     overflow: clip;
+    border-radius: 8px;
 }
 
 .glossary-gif {
@@ -137,9 +146,10 @@ a:hover {
 }
 
 #popup img {
-    height: 50%;
-    width: 50%;
+    height: 60%;
+    width: 60%;
     object-fit: contain;
+    background-color: rgba(255,255,255,0.035);
 }
 
 #close-btn {
@@ -164,6 +174,8 @@ a:hover {
 
     .card {
         flex: 1 1 100%;
+        max-width: 400px;
+        max-height: 400px;
     }
 
     #close-btn {
@@ -173,5 +185,6 @@ a:hover {
     #popup img {
         height: 90%;
         width: 90%;
+        background-color: transparent;
     }
 }

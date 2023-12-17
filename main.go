@@ -3,23 +3,34 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"os"
+	"strings"
 )
 
-func main() {
-	r := gin.Default()
-	r.HTMLRender = &TemplRenderer{}
+var ignoredFiletypes = []string{".go", ".md", ".gitignore", ".sum", ".mod", ".templ"}
 
-	r.GET("/", func(c *gin.Context) {
+func main() {
+	e := gin.Default()
+	e.HTMLRender = &TemplRenderer{}
+
+	e.GET("/", func(c *gin.Context) {
 		c.HTML(200, "", index())
 	})
 
-	r.GET("/glossary", func(c *gin.Context) {
+	e.GET("/glossary", func(c *gin.Context) {
 		c.HTML(200, "", glossary())
 	})
 
-	r.GET("/stylesheet.css", func(c *gin.Context) {
-		c.File("stylesheet.css")
+	e.GET("/static/:filename", func(c *gin.Context) {
+		filename := c.Param("filename")
+		for _, filetype := range ignoredFiletypes {
+			if strings.HasSuffix(filename, filetype) {
+				c.AbortWithStatus(403)
+				return
+			}
+		}
+		c.File(filename)
 	})
 
-	_ = r.Run(":" + os.Getenv("PORT"))
+	_ = e.Run(":" + os.Getenv("PORT"))
+
 }

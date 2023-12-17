@@ -4,8 +4,8 @@ templ head(title string) {
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="icon" type="image/x-icon" href="https://picsum.photos/100/100"/>
-        <link rel="stylesheet" href="/stylesheet.css"/>
+        <link rel="icon" type="image/x-icon" href="/static/лого.svg"/>
+        <link rel="stylesheet" href="/static/stylesheet.css"/>
         <title>{ title }</title>
     </head>
 }
@@ -26,14 +26,16 @@ templ index() {
         @navBar()
 
         <div class="content">
-        for _, article := range Articles {
+        for _, image := range Glossary {
+            if description, ok := descriptions[image.Title]; ok {
             <article>
-                <img class="article-img" src={article.ImageUrl} alt={article.Title}/>
+                <img class="article-img" src={image.Url} alt={image.Title}/>
                 <div>
-                    <h2>{article.Title}</h2>
-                    <p>{article.Body}</p>
+                    <h2>{image.Title}</h2>
+                    <p>{description}</p>
                 </div>
             </article>
+            }
         }
         </div>
     </body>
@@ -58,13 +60,15 @@ templ glossary() {
             <button id="close-btn" onclick="popup.style.display='none'">Закрити</button>
         </div>
 
-        <div class="card-container">
-        for _, article := range Articles {
-            <div class="card" onclick={ onclick(article) }>
-                <img class="card-img" src={article.ImageUrl} alt={article.Title}/>
-                <h2>{article.Title}</h2>
+        <div class="centered">
+            <div class="card-container">
+            for _, image := range Glossary {
+                <div class="card" onclick={ onclick(image) }>
+                    <img class="card-img" src={image.Url} alt={image.Title}/>
+                    <h2>{image.Title}</h2>
+                </div>
+            }
             </div>
-        }
         </div>
     </body>
     <script>
@@ -74,9 +78,9 @@ templ glossary() {
     </html>
 }
 
-script onclick(article Article) {
+script onclick(image Image) {
     popup.style.display = "flex";
-    popupImage.src = article.ImageUrl;
-    popupImage.alt = article.Title;
-    popupTitle.innerText = article.Title;
+    popupImage.src = image.Url;
+    popupImage.alt = image.Title;
+    popupTitle.innerText = image.Title;
 }
