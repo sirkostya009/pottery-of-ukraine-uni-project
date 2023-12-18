@@ -32,5 +32,4 @@ func main() {
 	})
 
 	_ = e.Run(":" + os.Getenv("PORT"))
-
 }
