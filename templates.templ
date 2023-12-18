@@ -12,10 +12,10 @@ templ head(title string) {
 
 templ navBar() {
     <nav>
-        <ul>
-            <li><a href="/">Домашня</a></li>
-            <li><a href="/glossary">Глосарій</a></li>
-        </ul>
+        <a href="/"><img src="/static/лого.svg" alt="Лого"/></a>
+        <a href="/decor">Декор</a>
+        <a href="/process">Процес вироблення</a>
+        <a href="/glossary">Глосарій</a>
     </nav>
 }
 
@@ -26,13 +26,13 @@ templ index() {
         @navBar()
 
         <div class="content">
-        for _, image := range Glossary {
-            if description, ok := descriptions[image.Title]; ok {
+        for _, image := range Images {
+            if image.Body != "" {
             <article>
                 <img class="article-img" src={image.Url} alt={image.Title}/>
                 <div>
                     <h2>{image.Title}</h2>
-                    <p>{description}</p>
+                    <p>{image.Body}</p>
                 </div>
             </article>
             }
@@ -48,11 +48,7 @@ templ glossary() {
     <body>
         @navBar()
 
-        <img
-            class="glossary-gif"
-            alt="Гончарство"
-            src="/static/анімація.gif"
-        />
+        <img class="glossary-gif" alt="Гончарство" src="/static/анімація.gif"/>
 
         <div id="popup">
             <h2 id="popupTitle"></h2>
@@ -62,8 +58,8 @@ templ glossary() {
 
         <div class="centered">
             <div class="card-container">
-            for _, image := range Glossary {
-                <div class="card" onclick={ onclick(image) }>
+            for _, image := range Images {
+                <div class="card" onclick={ onclick(image.Title, image.Url) }>
                     <img class="card-img" src={image.Url} alt={image.Title}/>
                     <h2>{image.Title}</h2>
                 </div>
@@ -78,9 +74,48 @@ templ glossary() {
     </html>
 }
 
-script onclick(image Image) {
-    popup.style.display = "flex";
-    popupImage.src = image.Url;
-    popupImage.alt = image.Title;
-    popupTitle.innerText = image.Title;
+templ decor() {
+    <html lang="uk">
+    @head("Декор | Гончарство України")
+    <body>
+        @navBar()
+
+        <div class="decor">
+        for _, image := range Images {
+            if image.Body == "" {
+            <img src={image.Url} alt={image.Title}  onmouseover={onhover(image.Title)} onmouseleave={onout(image.Title)}/>
+            <h2 id={image.Title} class="title">{image.Title}</h2>
+            }
+        }
+        </div>
+    </body>
+    </html>
+}
+
+templ process() {
+    <html lang="uk">
+    @head("Процес виготовлення | Гончарство України")
+    <body>
+        @navBar()
+
+        <div class="process">
+            <img src="/static/анімація.gif" alt="Запікання"/>
+        </div>
+    </body>
+    </html>
+}
+
+script onclick(title string, url string) {
+    popup.style.display = 'flex';
+    popupImage.src = url;
+    popupImage.alt = title;
+    popupTitle.innerText = title;
+}
+
+script onhover(id string) {
+    document.getElementById(id).style.display = 'block';
+}
+
+script onout(id string) {
+    document.getElementById(id).style.display = 'none';
 }

@@ -20,6 +20,14 @@ func main() {
 		c.HTML(200, "", glossary())
 	})
 
+	e.GET("/decor", func(c *gin.Context) {
+		c.HTML(200, "", decor())
+	})
+
+	e.GET("/process", func(c *gin.Context) {
+		c.HTML(200, "", process())
+	})
+
 	e.GET("/static/:filename", func(c *gin.Context) {
 		filename := c.Param("filename")
 		for _, filetype := range ignoredFiletypes {

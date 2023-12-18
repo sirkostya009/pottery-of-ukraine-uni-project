@@ -39,25 +39,14 @@ p {
 
 nav {
     background-color: #333;
-    color: #fff;
-    position: fixed;
-    width: 100%;
-    top: 0;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
-    max-width: 800px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
-li {
+nav a {
     float: left;
-}
-
-a {
     display: block;
     color: white;
     text-align: center;
@@ -65,9 +54,15 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+nav a:hover {
     background-color: #ddd;
     color: black;
+}
+
+nav img {
+    display: block;
+    cursor: pointer;
+    height: 18px; /* Set the height of the logo */
 }
 
 .content {
@@ -158,6 +153,68 @@ a:hover {
     margin-top: 20px;
 }
 
+.decor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.decor img {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+    overflow: clip;
+    border-radius: 8px;
+    bottom: 0;
+    transition: 0.5s;
+}
+
+.decor img:nth-child(odd) {
+    margin-right: -80px;
+}
+
+.decor img:nth-child(even) {
+    margin-left: -80px;
+}
+
+.decor img:last-child {
+    margin-left: -80px;
+}
+
+.decor img:hover {
+    scale: 1.2;
+    transition: 0.5s;
+}
+
+.process {
+    bottom: 0;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}
+
+.process img {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.title {
+    display: none;
+}
+
 @media only screen and (max-width: 800px) {
     .content {
         padding: 10px;
@@ -187,4 +244,35 @@ a:hover {
         width: 90%;
         background-color: transparent;
     }
+
+    .decor {
+        flex-direction: column;
+    }
+
+    .decor img:nth-child(odd) {
+        margin-top: -20px;
+        margin-right: 0;
+    }
+
+    .decor img:nth-child(even) {
+        margin-bottom: -20px;
+        margin-left: 0;
+    }
+
+    .decor img:last-child {
+        margin-top: -20px;
+        margin-left: 0;
+    }
+
+    .title {
+        font-size: 0;
+    }
+
+    .process img {
+         position: absolute;
+         bottom: 0;
+         width: 100%;
+         height: 90%;
+         object-fit: contain;
+     }
 }
