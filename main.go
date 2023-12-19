@@ -39,5 +39,9 @@ func main() {
 		c.File(filename)
 	})
 
+	e.GET("/favicon.ico", func(c *gin.Context) {
+		c.File("лого.ico")
+	})
+
 	_ = e.Run(":" + os.Getenv("PORT"))
 }
