@@ -13,7 +13,7 @@ func main() {
 	e.HTMLRender = &TemplRenderer{}
 
 	e.GET("/", func(c *gin.Context) {
-		c.HTML(200, "", index())
+		c.HTML(200, "", home())
 	})
 
 	e.GET("/glossary", func(c *gin.Context) {
