@@ -1,5 +1,27 @@
 package main
 
+templ layout(title string) {
+    <html lang="uk">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/x-icon" href="/static/лого.svg"/>
+        <link rel="stylesheet" href="/static/stylesheet.css"/>
+        <title>{ title }</title>
+    </head>
+    <body>
+        <nav class="centered">
+            <a href="/"><img src="/static/лого.svg" alt="Лого"/></a>
+            <a href="/decor">Декор</a>
+            <a href="/process">Процес вироблення</a>
+            <a href="/glossary">Глосарій</a>
+        </nav>
+
+        { children... }
+    </body>
+    </html>
+}
+
 templ home() {
     @layout("Гончарство України") {
         <div class="content">
@@ -15,6 +37,38 @@ templ home() {
             }
         }
         </div>
+    }
+}
+
+templ decor() {
+    @layout("Декор | Гончарство України") {
+        <div class="decor">
+        for _, image := range Images {
+            if image.Body == "" {
+            <img src={image.Url} alt={image.Title}  onmouseover={onhover(image.Title)} onmouseleave={onout(image.Title)}/>
+            <h2 id={image.Title} class="title">{image.Title}</h2>
+            }
+        }
+        </div>
+    }
+}
+
+script onhover(id string) {
+    document.getElementById(id).style.display = 'block';
+}
+
+script onout(id string) {
+    document.getElementById(id).style.display = 'none';
+}
+
+templ process() {
+    @layout("Процес вироблення | Гончарство України") {
+        <style>
+            body {
+                background-color: black;
+            }
+        </style>
+        <img class="process" src="/static/анімація.gif" alt="Запікання"/>
     }
 }
 
@@ -46,63 +100,9 @@ templ glossary() {
     }
 }
 
-templ decor() {
-    @layout("Декор | Гончарство України") {
-        <div class="decor">
-        for _, image := range Images {
-            if image.Body == "" {
-            <img src={image.Url} alt={image.Title}  onmouseover={onhover(image.Title)} onmouseleave={onout(image.Title)}/>
-            <h2 id={image.Title} class="title">{image.Title}</h2>
-            }
-        }
-        </div>
-    }
-}
-
-templ process() {
-    @layout("Процес вироблення | Гончарство України") {
-        <style>
-            body {
-                background-color: black;
-            }
-        </style>
-        <img class="process" src="/static/анімація.gif" alt="Запікання"/>
-    }
-}
-
-templ layout(title string) {
-    <html lang="uk">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="icon" type="image/x-icon" href="/static/лого.svg"/>
-        <link rel="stylesheet" href="/static/stylesheet.css"/>
-        <title>{ title }</title>
-    </head>
-    <body>
-        <nav class="centered">
-            <a href="/"><img src="/static/лого.svg" alt="Лого"/></a>
-            <a href="/decor">Декор</a>
-            <a href="/process">Процес вироблення</a>
-            <a href="/glossary">Глосарій</a>
-        </nav>
-
-        { children... }
-    </body>
-    </html>
-}
-
 script onclick(title string, url string) {
     popup.style.display = 'flex';
     popupImage.src = url;
     popupImage.alt = title;
     popupTitle.innerText = title;
-}
-
-script onhover(id string) {
-    document.getElementById(id).style.display = 'block';
-}
-
-script onout(id string) {
-    document.getElementById(id).style.display = 'none';
 }
