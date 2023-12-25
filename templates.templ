@@ -1,30 +1,7 @@
 package main
 
-templ head(title string) {
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="icon" type="image/x-icon" href="/static/лого.svg"/>
-        <link rel="stylesheet" href="/static/stylesheet.css"/>
-        <title>{ title }</title>
-    </head>
-}
-
-templ navBar() {
-    <nav class="centered">
-        <a href="/"><img src="/static/лого.svg" alt="Лого"/></a>
-        <a href="/decor">Декор</a>
-        <a href="/process">Процес вироблення</a>
-        <a href="/glossary">Глосарій</a>
-    </nav>
-}
-
 templ home() {
-    <html lang="uk">
-    @head("Гончарство України")
-    <body>
-        @navBar()
-
+    @layout("Гончарство України") {
         <div class="content">
         for _, image := range Images {
             if image.Body != "" {
@@ -38,16 +15,11 @@ templ home() {
             }
         }
         </div>
-    </body>
-    </html>
+    }
 }
 
 templ glossary() {
-    <html lang="uk">
-    @head("Глосарій | Гончарство України")
-    <body>
-        @navBar()
-
+    @layout("Глосарій | Гончарство України") {
         <img class="glossary-gif" alt="Гончарство" src="/static/анімація.gif"/>
 
         <div id="popup">
@@ -66,20 +38,16 @@ templ glossary() {
             }
             </div>
         </div>
-    </body>
-    <script>
-    document.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
-    popup.addEventListener('click', (event) => (visualViewport.width <= 800 || event.target !== popupImage) && (popup.style.display = 'none'));
-    </script>
-    </html>
+
+        <script>
+        document.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
+        popup.addEventListener('click', (event) => (visualViewport.width <= 800 || event.target !== popupImage) && (popup.style.display = 'none'));
+        </script>
+    }
 }
 
 templ decor() {
-    <html lang="uk">
-    @head("Декор | Гончарство України")
-    <body>
-        @navBar()
-
+    @layout("Декор | Гончарство України") {
         <div class="decor">
         for _, image := range Images {
             if image.Body == "" {
@@ -88,17 +56,38 @@ templ decor() {
             }
         }
         </div>
-    </body>
-    </html>
+    }
 }
 
 templ process() {
-    <html lang="uk">
-    @head("Процес виготовлення | Гончарство України")
-    <body style="background-color: black">
-        @navBar()
-
+    @layout("Процес вироблення | Гончарство України") {
+        <style>
+            body {
+                background-color: black;
+            }
+        </style>
         <img class="process" src="/static/анімація.gif" alt="Запікання"/>
+    }
+}
+
+templ layout(title string) {
+    <html lang="uk">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/x-icon" href="/static/лого.svg"/>
+        <link rel="stylesheet" href="/static/stylesheet.css"/>
+        <title>{ title }</title>
+    </head>
+    <body>
+        <nav class="centered">
+            <a href="/"><img src="/static/лого.svg" alt="Лого"/></a>
+            <a href="/decor">Декор</a>
+            <a href="/process">Процес вироблення</a>
+            <a href="/glossary">Глосарій</a>
+        </nav>
+
+        { children... }
     </body>
     </html>
 }
