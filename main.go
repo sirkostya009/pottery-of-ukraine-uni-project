@@ -1,47 +1,37 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"os"
-	"strings"
 )
 
-var ignoredFiletypes = []string{".go", ".md", ".gitignore", ".sum", ".mod", ".templ"}
-
 func main() {
-	e := gin.Default()
-	e.HTMLRender = &TemplRenderer{}
+	e := echo.New()
+	e.Renderer = &TemplRenderer{}
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "${time_rfc3339} | ${latency_human} | ${status} | ${method} @ [${remote_ip}] : ${path}\n",
+	}))
 
-	e.GET("/", func(c *gin.Context) {
-		c.HTML(200, "", home())
+	e.GET("/", func(c echo.Context) error {
+		return c.Render(200, "home", home())
 	})
 
-	e.GET("/glossary", func(c *gin.Context) {
-		c.HTML(200, "", glossary())
+	e.GET("/glossary", func(c echo.Context) error {
+		return c.Render(200, "glossary", glossary())
 	})
 
-	e.GET("/decor", func(c *gin.Context) {
-		c.HTML(200, "", decor())
+	e.GET("/decor", func(c echo.Context) error {
+		return c.Render(200, "decor", decor())
 	})
 
-	e.GET("/process", func(c *gin.Context) {
-		c.HTML(200, "", process())
+	e.GET("/process", func(c echo.Context) error {
+		return c.Render(200, "process", process())
 	})
 
-	e.GET("/static/:filename", func(c *gin.Context) {
-		filename := c.Param("filename")
-		for _, filetype := range ignoredFiletypes {
-			if strings.HasSuffix(filename, filetype) {
-				c.AbortWithStatus(403)
-				return
-			}
-		}
-		c.File(filename)
-	})
+	e.Static("/static", "static")
 
-	e.GET("/favicon.ico", func(c *gin.Context) {
-		c.File("лого.ico")
-	})
+	e.File("/favicon.ico", "static/лого.ico")
 
-	_ = e.Run(":" + os.Getenv("PORT"))
+	_ = e.Start(":" + os.Getenv("PORT"))
 }
