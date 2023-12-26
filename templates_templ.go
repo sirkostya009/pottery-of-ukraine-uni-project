@@ -188,7 +188,7 @@ func decor() templ.Component {
 			}
 			for _, image := range Images {
 				if image.Body == "" {
-					templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, onhover(image.Title), onout(image.Title))
+					templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, setDisplay(image.Title, "block"), setDisplay(image.Title, "none"))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -212,7 +212,7 @@ func decor() templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var12 templ.ComponentScript = onhover(image.Title)
+					var templ_7745c5c3_Var12 templ.ComponentScript = setDisplay(image.Title, "block")
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12.Call)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
@@ -221,7 +221,7 @@ func decor() templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var13 templ.ComponentScript = onout(image.Title)
+					var templ_7745c5c3_Var13 templ.ComponentScript = setDisplay(image.Title, "none")
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13.Call)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
@@ -269,21 +269,12 @@ func decor() templ.Component {
 	})
 }
 
-func onhover(id string) templ.ComponentScript {
+func setDisplay(id, display string) templ.ComponentScript {
 	return templ.ComponentScript{
-		Name:       `__templ_onhover_016f`,
-		Function:   `function __templ_onhover_016f(id){document.getElementById(id).style.display = 'block';}`,
-		Call:       templ.SafeScript(`__templ_onhover_016f`, id),
-		CallInline: templ.SafeScriptInline(`__templ_onhover_016f`, id),
-	}
-}
-
-func onout(id string) templ.ComponentScript {
-	return templ.ComponentScript{
-		Name:       `__templ_onout_695a`,
-		Function:   `function __templ_onout_695a(id){document.getElementById(id).style.display = 'none';}`,
-		Call:       templ.SafeScript(`__templ_onout_695a`, id),
-		CallInline: templ.SafeScriptInline(`__templ_onout_695a`, id),
+		Name:       `__templ_setDisplay_5043`,
+		Function:   `function __templ_setDisplay_5043(id, display){document.getElementById(id).style.display = display;}`,
+		Call:       templ.SafeScript(`__templ_setDisplay_5043`, id, display),
+		CallInline: templ.SafeScriptInline(`__templ_setDisplay_5043`, id, display),
 	}
 }
 

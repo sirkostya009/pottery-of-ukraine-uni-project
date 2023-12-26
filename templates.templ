@@ -45,7 +45,11 @@ templ decor() {
         <div class="decor">
         for _, image := range Images {
             if image.Body == "" {
-            <img src={image.Url} alt={image.Title}  onmouseover={onhover(image.Title)} onmouseleave={onout(image.Title)}/>
+            <img src={image.Url}
+                 alt={image.Title}
+                 onmouseover={setDisplay(image.Title, "block")}
+                 onmouseleave={setDisplay(image.Title, "none")}
+            />
             <h2 id={image.Title} class="title">{image.Title}</h2>
             }
         }
@@ -53,12 +57,8 @@ templ decor() {
     }
 }
 
-script onhover(id string) {
-    document.getElementById(id).style.display = 'block';
-}
-
-script onout(id string) {
-    document.getElementById(id).style.display = 'none';
+script setDisplay(id, display string) {
+    document.getElementById(id).style.display = display;
 }
 
 templ process() {
