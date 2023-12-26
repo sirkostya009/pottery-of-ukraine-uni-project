@@ -274,6 +274,10 @@ nav img {
         max-height: 60%;
     }
 
+    #popup {
+        max-height: 100%;
+    }
+
     .decor {
         margin-top: 350px;
     }
