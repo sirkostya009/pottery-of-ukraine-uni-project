@@ -7,10 +7,11 @@ templ layout(title string) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="image/x-icon" href="/static/лого.svg"/>
         <link rel="stylesheet" href="/static/stylesheet.css"/>
+        <script src="https://unpkg.com/htmx.org@1.9.10"/>
         <title>{ title }</title>
     </head>
     <body>
-        <nav class="centered">
+        <nav hx-boost="true" hx-swap="transition:true" class="centered">
             <a href="/"><img src="/static/лого.svg" alt="Лого"/></a>
             <a href="/decor">Декор</a>
             <a href="/process">Процес вироблення</a>
@@ -23,38 +24,34 @@ templ layout(title string) {
 }
 
 templ home() {
-    @layout("Гончарство України") {
-        <div class="content">
-        for _, image := range Images {
-            if image.Body != "" {
-            <article>
-                <img class="article-img" src={image.Url} alt={image.Title}/>
-                <div>
-                    <h2>{image.Title}</h2>
-                    <p>{image.Body}</p>
-                </div>
-            </article>
-            }
+    <div class="content">
+    for _, image := range Images {
+        if image.Body != "" {
+        <article>
+            <img class="article-img" src={image.Url} alt={image.Title}/>
+            <div>
+                <h2>{image.Title}</h2>
+                <p>{image.Body}</p>
+            </div>
+        </article>
         }
-        </div>
     }
+    </div>
 }
 
 templ decor() {
-    @layout("Декор | Гончарство України") {
-        <div class="decor">
-        for _, image := range Images {
-            if image.Body == "" {
-            <img src={image.Url}
-                 alt={image.Title}
-                 onmouseover={setDisplay(image.Title, "block")}
-                 onmouseleave={setDisplay(image.Title, "none")}
-            />
-            <h2 id={image.Title} class="title">{image.Title}</h2>
-            }
+    <div class="decor">
+    for _, image := range Images {
+        if image.Body == "" {
+        <img src={image.Url}
+             alt={image.Title}
+             onmouseover={setDisplay(image.Title, "block")}
+             onmouseleave={setDisplay(image.Title, "none")}
+        />
+        <h2 id={image.Title} class="title">{image.Title}</h2>
         }
-        </div>
     }
+    </div>
 }
 
 script setDisplay(id, display string) {
@@ -62,45 +59,41 @@ script setDisplay(id, display string) {
 }
 
 templ process() {
-    @layout("Процес вироблення | Гончарство України") {
-        <style>
-            body {
-                background-color: black;
-            }
-        </style>
-        <img class="process" src="/static/анімація.gif" alt="Запікання"/>
-    }
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+    <img class="process" src="/static/анімація.gif" alt="Запікання"/>
 }
 
 templ glossary() {
-    @layout("Глосарій | Гончарство України") {
-        <img class="glossary-gif" alt="Гончарство" src="/static/анімація.gif"/>
+    <img class="glossary-gif" alt="Гончарство" src="/static/анімація.gif"/>
 
-        <div id="popup">
-            <h2 id="popupTitle"></h2>
-            <img id="popupImage" src=""/>
-            <button id="close-btn" onclick="popup.style.display='none'">Закрити</button>
-        </div>
+    <div id="popup">
+        <h2 id="popupTitle"></h2>
+        <img id="popupImage" src=""/>
+        <button id="close-btn" onclick="popup.style.display='none'">Закрити</button>
+    </div>
 
-        <div class="centered">
-            <div class="card-container">
-            for _, image := range Images {
-                <div class="card" onclick={ onclick(image.Title, image.Url) }>
-                    <img class="card-img" src={image.Url} alt={image.Title}/>
-                    <h2>{image.Title}</h2>
-                </div>
-            }
+    <div class="centered">
+        <div class="card-container">
+        for _, image := range Images {
+            <div class="card" onclick={ onclick(image.Title, image.Url) }>
+                <img class="card-img" src={image.Url} alt={image.Title}/>
+                <h2>{image.Title}</h2>
             </div>
+        }
         </div>
+    </div>
 
-        <script>
-        document.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
-        popup.addEventListener('click', (event) => (visualViewport.width <= 800 || event.target !== popupImage) && (popup.style.display = 'none'));
-        </script>
-    }
+    <script>
+    document.addEventListener('keydown', (event) => event.keyCode === 27 && (popup.style.display = 'none'));
+    popup.addEventListener('click', (event) => (visualViewport.width <= 800 || event.target !== popupImage) && (popup.style.display = 'none'));
+    </script>
 }
 
-script onclick(title string, url string) {
+script onclick(title, url string) {
     popup.style.display = 'flex';
     popupImage.src = url;
     popupImage.alt = title;

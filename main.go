@@ -14,19 +14,19 @@ func main() {
 	}))
 
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "home", home())
+		return c.Render(200, "Гончарство України", home())
 	})
 
 	e.GET("/glossary", func(c echo.Context) error {
-		return c.Render(200, "glossary", glossary())
+		return c.Render(200, "Глосарій | Гончарство України", glossary())
 	})
 
 	e.GET("/decor", func(c echo.Context) error {
-		return c.Render(200, "decor", decor())
+		return c.Render(200, "Декор | Гончарство України", decor())
 	})
 
 	e.GET("/process", func(c echo.Context) error {
-		return c.Render(200, "process", process())
+		return c.Render(200, "Процес вироблення | Гончарство України", process())
 	})
 
 	e.Static("/static", "static")
